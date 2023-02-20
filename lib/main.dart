@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
+import 'package:bmi_calculator/input.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -48,56 +49,94 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+  
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        backgroundColor: const Color.fromRGBO(25, 106, 218, 1),
+        title: Text(widget.title,style:GoogleFonts.lato(fontSize: 20)),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-         
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.asset('assets/images/img1.png'),
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.width * 0.22),
+            // Padding(
+            //     padding: const EdgeInsets.only(right: 15),
+            //     child: ClipRRect(
+            //       borderRadius: BorderRadius.circular(7.0),
+            //       child: Image.network(
+            //         "https://raw.githubusercontent.com/pratiksha-dse/BMI_Calculator/main/assets/images/img1.png",
+            //         // height: 45.0,
+            //       ),
+            //     )),
+        Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: Text(
+                  'Welcome to',
+                  style:GoogleFonts.lato(
+                      fontSize: 27,
+                      fontWeight: FontWeight.w900,
+                      color: const Color.fromRGBO(101, 100, 100, 1)),
+                  textAlign: TextAlign.center,
+                )),
+             Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: Text(
+                  'BMI Calculator!',
+                  style:GoogleFonts.lato(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w900,
+                      color:const Color.fromRGBO(25, 106, 218, 1)),
+                  textAlign: TextAlign.center,
+                )),
+                 Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(7.0),
+                  child: Image.network(
+                    "https://raw.githubusercontent.com/pratiksha-dse/BMI_Calculator/main/assets/images/img1.png",
+                    // height: 45.0,
+                  ),
+                )),
+                Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const InputPage()),
+                        );
+                        },
+                        style: ButtonStyle(
+                            backgroundColor:
+                                const MaterialStatePropertyAll<Color>(
+                               Color.fromRGBO(25, 106, 218, 1),
+                            ),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25.0),
+                            ))),
+                        child: Container(
+                            padding: const EdgeInsets.all(10),
+                            child: Text(
+                              'Start',
+                              style: GoogleFonts.lato(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w800),
+                              textAlign: TextAlign.center,
+                            )),
+                      ),
+                    )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
