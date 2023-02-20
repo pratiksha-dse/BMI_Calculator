@@ -28,6 +28,7 @@ class _InputPageState extends State<InputPage> {
   );
 
   String result = '';
+  double idx = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -38,45 +39,42 @@ class _InputPageState extends State<InputPage> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: MediaQuery.of(context).size.width * 0.22),
+            SizedBox(height: MediaQuery.of(context).size.width * .22),
             Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: Text(
-                  'Welcome to',
+                  'Enter Details to calculate',
                   style: GoogleFonts.lato(
-                      fontSize: 27,
-                      fontWeight: FontWeight.w900,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w800,
                       color: const Color.fromRGBO(101, 100, 100, 1)),
                   textAlign: TextAlign.center,
                 )),
             Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: Text(
-                  'BMI Calculator!',
+                  'Body Mass Index!',
                   style: GoogleFonts.lato(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w900,
+                      fontSize: 25,
+                      fontWeight: FontWeight.w800,
                       color: const Color.fromRGBO(25, 106, 218, 1)),
                   textAlign: TextAlign.center,
                 )),
             Padding(
-                padding: const EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.only(top: 20),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(7.0),
-                  child: Image.network(
-                    "https://raw.githubusercontent.com/pratiksha-dse/BMI_Calculator/main/assets/images/img1.png",
-                    height: 45.0,
-                  ),
-                )),
+                    borderRadius: BorderRadius.circular(50.0),
+                    child: Image.asset("assets/images/img1.png", height: 55))),
             Form(
                 key: _formKey,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                          padding: const EdgeInsets.only(left: 25, right: 25,top:20),
+                          padding: const EdgeInsets.only(
+                              left: 25, right: 25, top: 20),
                           child: TextFormField(
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
@@ -99,7 +97,8 @@ class _InputPageState extends State<InputPage> {
                             },
                           )),
                       Padding(
-                          padding: const EdgeInsets.only(left: 25, right: 25,top:20),
+                          padding: const EdgeInsets.only(
+                              left: 25, right: 25, top: 20),
                           child: TextFormField(
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
@@ -122,7 +121,8 @@ class _InputPageState extends State<InputPage> {
                             },
                           )),
                       Padding(
-                          padding: const EdgeInsets.only(left: 25, right: 25,top:20),
+                          padding: const EdgeInsets.only(
+                              left: 25, right: 25, top: 20),
                           child: TextFormField(
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
@@ -145,25 +145,19 @@ class _InputPageState extends State<InputPage> {
                             },
                           )),
                       Padding(
-                        padding: const EdgeInsets.only(top: 20),
+                        padding: const EdgeInsets.only(top: 40),
                         child: ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Processing Data')),
-                              );
-
                               _formKey.currentState?.save();
-
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Saved!')),
-                              );
-                              double idx = model.weight /
-                                  (model.height) *
-                                  (model.height) *
-                                  (0.00001);
-                              if (idx < 18.5) {
+                              double idxval = model.weight /
+                                  ((model.height) * (model.height) * (0.0001));
+                              idxval = double.parse(idxval.toStringAsFixed(2));
+                              setState(() {
+                                idx = idxval;
+                                print(idx);
+                              });
+                              if (idx < 18.5 && idx > 0) {
                                 setState(() {
                                   result = "Under Weight!";
                                 });
@@ -177,23 +171,24 @@ class _InputPageState extends State<InputPage> {
                                 });
                               } else if (idx >= 30 && idx <= 34.9) {
                                 setState(() {
-                                  result = "Obesity (Class I)!";
+                                  result = "at Obesity (Class I)!";
                                 });
                               } else if (idx >= 35 && idx <= 39.9) {
                                 setState(() {
-                                  result = "Obesity (Class II)1";
+                                  result = "at Obesity (Class II)!";
                                 });
                               } else if (idx >= 40) {
                                 setState(() {
-                                  result = "Extreme Obesity!";
+                                  result = "at Extreme Obesity!";
                                 });
                               }
-                              if (result != "") {
+                              if (result != '') {
+                                print(result);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          OutputPage(result: result)),
+                                          OutputPage(result: result, idx: idx)),
                                 );
                               }
                             }

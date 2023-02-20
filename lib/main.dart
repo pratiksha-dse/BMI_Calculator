@@ -97,10 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.only(top: 10),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(7.0),
-                  child: Image.network(
-                    "https://raw.githubusercontent.com/pratiksha-dse/BMI_Calculator/main/assets/images/img1.png",
-                    // height: 45.0,
-                  ),
+                  child: Image.asset("assets/images/img1.png")
                 )),
                 Padding(
                       padding: const EdgeInsets.only(top: 20),
